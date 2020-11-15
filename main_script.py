@@ -1,9 +1,43 @@
 import argparse
 import json
-#import pandas as pd
+import os
 
-from typing import Dict, List, Tuple
 from random import random, shuffle
+from typing import Dict, List, Tuple
+
+
+class Scorer:
+    def __init__(self):
+        self.correct_answers = 0
+        self.wrong_answers = 0
+        self._update()
+
+    def failure(self):
+        self.wrong_answers += 1
+        self._update()
+
+    def success(self):
+        self.correct_answers += 1
+        self._update()
+
+    def _update(self):
+        self.total_ans = self.correct_answers + self.wrong_answers
+        self.ratio = self.correct_answers/self.total_ans if self.total_ans else 0.
+
+    def _get_mark(self, ratio:float) -> str:
+        if ratio < 0.7:
+            return 'Désolé, tu as raté'
+        elif ratio < 0.9:
+            return 'Pas mal'
+        return 'Tu dois mettre nouveaux mots'
+
+    def print_stats(self):
+        print(f"{self.correct_answers}/{self.total_ans} --> {100 * self.ratio:.2f} %")
+
+    def print_final_score(self):
+        os.system('clear')
+        mark = self._get_mark(self.ratio)
+        print(f"Final score: {self.correct_answers}/{self.total_ans} --> {100 * self.ratio:.2f} %\n\n{mark}\n")
 
 
 def read_data(data_path:str) -> List[Dict[str, str]]:
@@ -16,40 +50,45 @@ def read_data(data_path:str) -> List[Dict[str, str]]:
     shuffle(data)
     return data
 
-#def get_languages(data:dict)-> Tuple[str, str]:
-#    langs = list(pd.DataFrame(data).columns)
-#    if len(langs) > 2:
-#        print('Too many languages in here!')
-#    return langs[0], langs[1]
-
 def exam_handler(data:list, src_lang:str, dest_lang:str, mode:int=1):
     if mode==1:#Bilingual
         exam(data, src_lang=src_lang, dest_lang=dest_lang, random_test=True)
     elif mode==2:#Src -> Dest
         exam(data, src_lang=src_lang, dest_lang=dest_lang)
     elif mode==3:#Dest -> Src
-        exam(data, src_lang=src_lang, dest_lang=dest_lang)
+        exam(data, src_lang=dest_lang, dest_lang=src_lang)
     return
 
 def exam(data:list, src_lang:str, dest_lang:str, random_test:bool=False):
     print(f"Let's start with a {src_lang.upper()} to {dest_lang.upper()} test!")
+    scorer = Scorer()
     for elem in data:
         if random_test and random() >= 0.5:
                 _lang = src_lang
                 src_lang = dest_lang
                 dest_lang = _lang
         try:
+            os.system('clear')
             src_word = elem[src_lang]
             dest_word = elem[dest_lang]
             answer = str()
-            while answer not in [dest_word, '.']:
+            scorer.print_stats()
+            first_attempt = True
+            while answer != dest_word:
                 answer = input(
-                    f"\n------\n Translate {src_word} from {src_lang.upper()} to {dest_lang.upper()}:\n"
-                    )
-                if answer!= dest_word:
+                    f"\n------\nTranslate {src_word} from {src_lang.upper()} to {dest_lang.upper()}:\n\n"
+                    ).strip()
+                if answer != dest_word:
                     print('\nBad guess, motherfucker')
+                    if first_attempt:
+                        scorer.failure()
+                    first_attempt = False
+            if first_attempt:
+                scorer.success()
         except KeyError:
             print(f"{elem} doesn't have the appropriate keys!")
+    scorer.print_final_score()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Supervised training')
