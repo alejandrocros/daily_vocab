@@ -1,0 +1,22 @@
+[
+    {"es": "apagar", "fr": "éteindre", "cat": "verb"},
+    {"es": "encender", "fr": "allumer", "cat": "verb"},
+    {"es": "escuchar", "fr": "écouter", "cat": "verb"},
+    {"es": "esperar", "fr": "attendre", "cat": "verb"},
+    {"es": "llevar", "fr": "emmener", "cat": "verb"},
+    {"es": "no me importa", "fr": "je m'en fiche", "cat": "expression"},
+    {"es": "oír", "fr": "entendre", "cat": "verb"},
+    {"es": "pavos", "fr": "balles", "comment": "bucks", "cat": "verb"},
+    {"es": "peso", "fr": "poids", "cat": "noun"},
+    {"es": "pie", "fr": "pied", "cat": "noun"},
+    {"es": "piel", "fr": "peau", "cat": "noun"},
+    {"es": "plato", "fr": "assiette", "cat": "noun"},
+    {"es": "raíz", "fr": "racine", "cat": "noun"},
+    {"es": "recoger", "fr": "ramasser", "cat": "verb"},
+    {"es": "tengo resaca", "fr": "j'ai la gueule de bois", "cat": "expression"},
+    {"es": "traer", "fr": "amener", "cat": "verb"},
+    {"es": "trueno", "fr": "tonnerre", "cat": "noun"},
+    {"es": "uva", "fr": "raisin", "cat": "noun"},
+    {"es": "merienda", "fr": "goûter", "cat": "noun"},
+    {"es": "curar", "fr": "soigner", "cat": "verb"}
+]
