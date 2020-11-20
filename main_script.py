@@ -71,12 +71,13 @@ def exam(data:list, src_lang:str, dest_lang:str, random_test:bool=False):
             os.system('clear')
             src_word = elem[src_lang]
             dest_word = elem[dest_lang]
+            comment = elem.get('comment', str())
             answer = str()
             scorer.print_stats()
             first_attempt = True
             while answer != dest_word:
                 answer = input(
-                    f"\n------\nTranslate {src_word} from {src_lang.upper()} to {dest_lang.upper()}:\n\n"
+                    f"\n------\nTranslate {src_word if not comment else f'{src_word} ({comment})'} from {src_lang.upper()} to {dest_lang.upper()}:\n\n"
                     ).strip()
                 if answer != dest_word:
                     print('\nBad guess, motherfucker')
@@ -92,10 +93,10 @@ def exam(data:list, src_lang:str, dest_lang:str, random_test:bool=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Supervised training')
-    parser.add_argument('--data', '-d', type=str, default='./data/vocabulary.json', help='Path to vocabulary JSON')
+    parser.add_argument('--data_path', '-d', type=str, default='./data/vocabulary.json', help='Path to vocabulary JSON')
     parser.add_argument('--source_lang', '-s', type=str, default='es', help='Source Language')
     parser.add_argument('--target_lang', '-t', type=str, default='fr', help='Target Language')
     parser.add_argument('--mode', '-m', type=int, default=1, help='Test Mode: 1->multilingual 2->ES to FR 3->FR to ES')
     params = parser.parse_args()
-    data = read_data(params.data)
+    data = read_data(params.data_path)
     exam_handler(data, params.source_lang, params.target_lang, params.mode)
