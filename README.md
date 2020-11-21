@@ -13,3 +13,7 @@ where
 - `-m` or `--mode` is the type of recap you want to do (`1` for random _source-target_ or _target-source_ questions  `2` for only _source-target_ and `3` for only _target-source_ questions).
 
 (Run `python main_script.py -h` for syntax help.)
+
+[image1]: ./.github/images/demo_screenshot.png "Demo"
+
+![Demo][image1]

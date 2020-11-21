@@ -87,6 +87,7 @@ def exam(data:list, src_lang:str, dest_lang:str, random_test:bool=False):
                     first_attempt = False
             if first_attempt:
                 scorer.success()
+            print('\n')
         except KeyError:
             print(f"{elem} doesn't have the appropriate keys!")
     scorer.print_final_score()
