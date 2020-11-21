@@ -68,6 +68,7 @@ def exam(data:list, src_lang:str, dest_lang:str, random_test:bool=False):
                 src_lang = dest_lang
                 dest_lang = _lang
         try:
+            ### put this into a function
             os.system('clear')
             src_word = elem[src_lang]
             dest_word = elem[dest_lang]
