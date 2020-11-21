@@ -1,3 +1,6 @@
+[//]: # (Image References)
+
+[image1]: ./.github/images/demo_screenshot.png "Demo"
 # Daily Vocabulary Recap
 
 ### Usage
@@ -14,6 +17,10 @@ where
 
 (Run `python main_script.py -h` for syntax help.)
 
-[image1]: ./.github/images/demo_screenshot.png "Demo"
-
+Sample of the test output:
 ![Demo][image1]
+
+## TO-DO
+- [X] Re-factor code.
+- [ ] Add multiple choice (a `synonymous` field in JSON's).
+- [ ] Split tests by word category.
